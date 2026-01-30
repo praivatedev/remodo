@@ -18,13 +18,15 @@ let client: MongoClient
 let clientPromise: Promise<MongoClient>
 
 declare global {
-    var _globalClientPromise: Promise<MongoClient>
+    var _mongoClientPromise: Promise<MongoClient>
 }
 
-if(!_globalClientPromise){
+if (process.env.NODE_ENV === "development") {
+    if(!global._mongoClientPromise){
     client = new MongoClient(uri, options)
-    global._globalClientPromise = client.connect()
+    global._mongoClientPromise = client.connect()
 }
-clientPromise = _globalClientPromise;
+}
+clientPromise = global._mongoClientPromise;
 
 export default clientPromise
