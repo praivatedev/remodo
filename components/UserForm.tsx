@@ -3,8 +3,8 @@ import { useRef, useState } from "react";
 
 export default function UserForm() {
   const [name, setName] = useState("")
-  const [descrption, setdescrption] = useState("")
-  const [sucess, setSucess] = useState("")
+  const [description, setDescrption] = useState("")
+  const [success, setSuccess] = useState("")
   const [error, setError] = useState("")
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
@@ -13,15 +13,15 @@ export default function UserForm() {
 
     if (type === "success") {
       setError("")
-      setSucess(text)
+      setSuccess(text)
     } else {
-      setSucess("")
+      setSuccess("")
       setError(text)
     }
 
     timeoutRef.current = setTimeout(() => {
       setError("")
-      setSucess("")
+      setSuccess("")
     }, 3000)
   }
 
@@ -36,7 +36,7 @@ export default function UserForm() {
         },
         body: JSON.stringify({
           name,
-          descrption
+          description
         }),
       })
 
@@ -48,7 +48,7 @@ export default function UserForm() {
         return
       }
 
-      showMessage("success", data.result)
+      showMessage("success", data.sucess)
     } catch (error) {
       showMessage("error", "Failed to add user")
     }
@@ -61,7 +61,7 @@ style={{
     backgroundSize: "80px 80px",
   }}>
       <form onSubmit={handleSubmit} className="flex flex-col gap-6 h-90 w-fit bg-gray-50 justify-center items-center px-6">
-        <p className={sucess ? "text-md font-semibold text-green-400" : "text-md font-semibold text-red-400"}>{sucess || error}</p>
+        <p className={success ? "text-md font-semibold text-green-400" : "text-md font-semibold text-red-400"}>{success || error}</p>
         <h1 className="text-2xl font-semibold ">Enter the movie details </h1>
         <input
           type="text"
@@ -74,8 +74,8 @@ style={{
         <input
           type="text"
           placeholder="Enter the movie descrption"
-          value={descrption}
-          onChange={(e) => { setName(e.target.value) }}
+          value={description}
+          onChange={(e) => { setDescrption(e.target.value) }}
           className="border border-black px-6 py-2 rounded-xl"
         />
 

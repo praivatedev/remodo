@@ -1,4 +1,4 @@
-import { getMoviesCollection } from "@/models/route";
+import { getMoviesCollection } from "@/models/movies";
 import { NextResponse } from "next/server";
 
 export async function POST (req: Request) {
@@ -22,10 +22,10 @@ export async function POST (req: Request) {
                 createdAt: new Date            
         })
 
-        return NextResponse.json(result, {status: 201})
+        return NextResponse.json({result, sucess: "Movie added successfully"}, {status: 201})
     } catch(error) {
         return NextResponse.json(
-           {error: "Someting went wrong!!"},
+           { error: (error as Error).message || "Something went wrong" },
            {status: 500}
         )
     }
