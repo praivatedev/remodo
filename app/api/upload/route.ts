@@ -27,8 +27,11 @@ export async function POST(req: Request) {
             folder: "movies"
         });
 
+        console.log({imageUrl: result.secure_url})
+
         return NextResponse.json({imageUrl: result.secure_url})
     } catch(error){
+         console.error("UPLOAD ERROR:", error);
         return NextResponse.json({error: "Unable to upload image!!"}, { status: 500 })
     }
 }

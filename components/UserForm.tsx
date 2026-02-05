@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 export default function UserForm() {
   const [name, setName] = useState("")
   const [description, setDescrption] = useState("")
-  const [file, setfile] = useState<File | null>(null)
+  const [file, setFile] = useState<File | null>(null)
   const [success, setSuccess] = useState("")
   const [error, setError] = useState("")
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
@@ -95,6 +95,12 @@ export default function UserForm() {
           onChange={(e) => { setDescrption(e.target.value) }}
           className="border border-black px-6 py-2 rounded-xl"
         />
+
+        <input
+        type="file"
+        accept="image/*"
+        onChange={(e) => setFile(e.target.files?.[0] || null)}
+      />
 
         <button
           type="submit"
