@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 export default function UserForm() {
   const [name, setName] = useState("")
   const [description, setDescrption] = useState("")
+  const [file, setfile] = useState<File | null>(null)
   const [success, setSuccess] = useState("")
   const [error, setError] = useState("")
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
@@ -30,7 +31,23 @@ export default function UserForm() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
 
+    if(!file){
+      setError("Please upload an image!!");
+       return
+    };
+
+     const formData = new FormData()
+      formData.append("file", file)
+
     try {
+      
+      const uploadRes = await fetch("/api/upload", {
+        method: "POST",
+        body: formData
+      });
+
+      const uploadData = await uploadRes.json();
+
       const res = await fetch("/api/movies", {
         method: "POST",
         headers: {
@@ -38,7 +55,8 @@ export default function UserForm() {
         },
         body: JSON.stringify({
           name,
-          description
+          description,
+          imageUrl: uploadData.imageUrl
         }),
       })
 
