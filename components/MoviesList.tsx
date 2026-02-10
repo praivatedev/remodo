@@ -28,7 +28,7 @@ export default function MoviesList({ showMessage }: MoviesListProps) {
       <h1 className='font-semibold text-3xl'> MoviesList </h1>
       <div className="grid grid-cols-5 gap-4">
         {movies.map((m: any) => (
-          <div className="bg-gray-200 w-50 h-40 px-4 py-4 rounded-lg"
+          <div className="bg-gray-200 w-60 h-80 px-4 py-4 rounded-lg"
             style={{
               backgroundImage: `url(${m.imageUrl})`,
               backgroundSize: "cover",

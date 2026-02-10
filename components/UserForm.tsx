@@ -33,7 +33,7 @@ export default function UserForm() {
     e.preventDefault()
 
     if(!file){
-      setError("Please upload an image!!");
+      showMessage("error", "Please upload an image!!");
        return
     };
 
@@ -76,9 +76,9 @@ export default function UserForm() {
     router.refresh();
   }
   return (
-    <div className="flex justify-center items-center"
+    <div className="flex justify-center items-center flex-col"
 >
-      <form onSubmit={handleSubmit} className="flex flex-col gap-6 h-90 w-fit bg-gray-50 justify-center items-center px-6">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-6 h-90 w-80 bg-gray-50 justify-center items-center px-6">
         <p className={success ? "text-md font-semibold text-green-400" : "text-md font-semibold text-red-400"}>{success || error}</p>
         <h1 className="text-2xl font-semibold ">Enter the movie details </h1>
         <input
@@ -86,7 +86,7 @@ export default function UserForm() {
           placeholder="Enter the movie name"
           value={name}
           onChange={(e) => { setName(e.target.value) }}
-          className="border border-black px-6 py-2 rounded-xl"
+          className="border border-black px-6 py-2 rounded-xl w-full"
         />
 
         <input
@@ -94,13 +94,14 @@ export default function UserForm() {
           placeholder="Enter the movie descrption"
           value={description}
           onChange={(e) => { setDescrption(e.target.value) }}
-          className="border border-black px-6 py-2 rounded-xl"
+          className="border border-black px-6 py-2 rounded-xl w-full"
         />
 
         <input
         type="file"
         accept="image/*"
         onChange={(e) => setFile(e.target.files?.[0] || null)}
+        className="border border-black px-6 py-2 rounded-xl w-full"
       />
 
         <button
