@@ -1,6 +1,7 @@
 "use client"
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import MoviesList from "@/components/MoviesList"
 
 export default function UserForm() {
   const [name, setName] = useState("")
@@ -109,6 +110,8 @@ export default function UserForm() {
           Add Movie
         </button>
       </form>
+
+      <MoviesList showMessage={showMessage}/>
     </div>
   );
 }

@@ -1,20 +1,29 @@
 import clientPromise from "@/lib/mongo/db";
 import { ObjectId } from "mongodb";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 
-export default async function DELETE (req: Request,
-    {params} : {params: {id : string}}
+export async function DELETE (req: NextRequest,
+    { params }: { params: Promise<{ id: string }> }
 ) {
 
+    const {id} = await params
+    
     try {
         const client = await clientPromise;
         const db = client.db("remodo");
 
-        await db.collection("movies").deleteOne({
-            _id: new ObjectId(params.id)
+        const result = await db.collection("movies").deleteOne({
+            _id: new ObjectId(id)
         });
 
-        return NextResponse.json({ sucess: "Movie deleted sucessfully"})
+        if(result.deletedCount === 0){
+            return NextResponse.json(
+                { error: "Movie not found" },
+                { status: 404 }
+            )
+        };
+
+        return NextResponse.json({ success: "Movie deleted sucessfully"})
     } catch (error) {
         console.error("Something went wrong!!")
         return NextResponse.json(

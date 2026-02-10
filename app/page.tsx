@@ -1,4 +1,3 @@
-import MoviesList from "@/components/MoviesList"
 import UserForm from "@/components/UserForm"
 
 const page = () => {
@@ -11,7 +10,7 @@ const page = () => {
   }}
    >
      <UserForm/>
-    <MoviesList/>
+  
    </div>
   )
 }
